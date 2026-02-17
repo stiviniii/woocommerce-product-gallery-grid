@@ -1,0 +1,183 @@
+/* Force Splide to be visible even before initialization */
+.splide {
+    visibility: visible !important;
+}
+
+.wpgg-gallery {
+    margin-bottom: 2em;
+    position: relative;
+    width: 100%;
+    clear: both;
+    box-sizing: border-box;
+}
+
+.wpgg-gallery * {
+    box-sizing: border-box;
+}
+
+/* Desktop Grid Layout */
+@media (min-width: 1024px) {
+    .gallery-grid {
+        display: grid !important;
+        /* Force grid even if splide adds flex */
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: repeat(2, 260px);
+        gap: 12px;
+        transform: none !important;
+        /* Disable splide transform */
+        width: 100% !important;
+        min-height: 532px;
+        /* 260*2 + 12 */
+    }
+
+    /* Prevent Splide from hiding or clipping the grid on desktop */
+    #wpgg-slider.splide,
+    #wpgg-slider .splide__track {
+        visibility: visible !important;
+        overflow: visible !important;
+    }
+
+    .gallery-item {
+        margin: 0 !important;
+        width: 100% !important;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    .grid-item--main {
+        grid-row: 1 / span 2;
+    }
+
+    /* Hide images beyond the max grid count on desktop */
+    .grid-item--extra {
+        display: none !important;
+    }
+}
+
+/* Mobile Slider Layout */
+@media (max-width: 1023px) {
+    .gallery-grid {
+        display: flex;
+        /* Splide needs flex */
+    }
+
+    .gallery-item {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* Hide overlay button on mobile slider if we only want it on grid */
+    .wpgg-overlay {
+        display: none;
+    }
+}
+
+/* Common Image Styles */
+.wpgg-gallery .image-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.wpgg-gallery img.wpgg-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 12px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img.wpgg-image {
+    transform: scale(1.05);
+}
+
+/* Overlay Button */
+.wpgg-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 100;
+    /* Ensure it's above the <a> link's pseudo-elements */
+}
+
+.wpgg-show-all.wpgg-btn {
+    position: relative;
+    z-index: 101;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 16px !important;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.wpgg-show-all:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.wpgg-show-all svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Splide Pagination Overrides */
+.splide__pagination {
+    bottom: -24px !important;
+}
+
+.splide__pagination__page {
+    background: #ccc;
+    opacity: 1;
+}
+
+.splide__pagination__page.is-active {
+    background: #000;
+    transform: scale(1.2);
+}
+
+/* PhotoSwipe Overrides */
+.pswp {
+    --pswp-bg: rgba(0, 0, 0, 0.95);
+    z-index: 999999 !important;
+    /* Ensure it's above everything */
+}
+
+/* Ensure UI elements are visible and positioned correctly */
+.pswp__ui {
+    z-index: 100 !important;
+}
+
+.pswp__button {
+    background: none !important;
+    opacity: 0.85 !important;
+}
+
+.pswp__button:hover {
+    opacity: 1 !important;
+}
+
+/* Fix for icons if they are being cut off or displaced */
+.pswp__button--arrow {
+    width: 60px !important;
+    height: 100px !important;
+    top: 50% !important;
+    margin-top: -50px !important;
+}
+
+/* Custom counter styling */
+.pswp__custom-counter {
+    color: #fff;
+    font-size: 14px;
+    padding: 15px;
+    opacity: 0.8;
+}
